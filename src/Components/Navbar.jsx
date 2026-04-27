@@ -1,85 +1,199 @@
-import React, { useState,useEffect } from 'react'
-import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai'
-import {FaTwitter, FaGithub, FaLinkedin, FaWhatsapp} from 'react-icons/fa'
-import {Link} from 'react-router-dom'
-import Logo from "../assets/logo.png"
+import React, { useState, useEffect } from 'react'
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
+import { FaTwitter, FaGithub, FaWhatsapp, FaLinkedin, FaMailchimp } from 'react-icons/fa'
+import { HiDownload } from 'react-icons/hi'
+import Logo from "../assets/logo.jpeg"
 
 const NavBar = () => {
-  const [shadow,setShadow]=useState(false)
-  const [menu,setMenu]=useState(false)
-  const [navbg, setNavbg]=useState('#ecf0f3')
-  const [link,setLink]=useState('#1f2937')
-  const toggle=()=>setMenu(!menu)
+  const [shadow, setShadow] = useState(false)
+  const [menu, setMenu] = useState(false)
+  const toggle = () => setMenu(!menu)
+
   useEffect(() => {
-    const handleShadow=()=>{
-      window.scrollY>=90 ? setShadow(true):setShadow(false)
+    const handleShadow = () => {
+      window.scrollY >= 90 ? setShadow(true) : setShadow(false)
     }
-    window.addEventListener('scroll',handleShadow)
-  
+    window.addEventListener('scroll', handleShadow)
+    return () => window.removeEventListener('scroll', handleShadow)
   }, [])
-  
- 
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menu ? 'hidden' : 'unset'
+    return () => { document.body.style.overflow = 'unset' }
+  }, [menu])
+
+  const navLinks = [
+    { href: '/#home', label: 'Home' },
+    // { href: '/#about', label: 'About' },
+    // { href: '/#skills', label: 'Skills' },
+    { href: '/#projects', label: 'Projects' },
+    { href: '/#contact', label: 'Contact' },
+  ]
+
+  const socials = [
+    { href: 'https://www.linkedin.com/in/esther-otudoh?utm_source=share_via&utm_content=profile&utm_medium=member_ios', icon: <FaLinkedin size={18} />, label: 'LinkedIn' },
+  ]
+
   return (
-    <div className={shadow? 'bg-white fixed w-full h-20 z-50 shadow-xl':'fixed  w-full h-20 z-50'}>
-        <div className='flex justify-between items-center h-full w-full px-2 2xl:px-16'>
-<div className="my-4"><a href="/"> <img src={Logo} className='object-cover w-[85px] h-[85px] p-1 rounded-full'/></a></div>
-<div className=''>
-  <ul className='hidden lg:flex md:items-center'>
+    <>
+      {/* ── Desktop / Tablet Navbar ── */}
+      <nav
+        className={`fixed w-full z-50 transition-all duration-300 ${
+          shadow
+            ? 'bg-white/95 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.08)] h-[72px]'
+            : 'bg-transparent h-20'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-full">
 
-    <a href="/#home"><li className="uppercase text-sm ml-10 md:text-lg hover:border-b">Home</li></a>
-    <a href="/#skills"> <li className="uppercase text-sm ml-10 md:text-lg   hover:border-b">SKILLS</li></a>
-      <a href="/#project"><li className="uppercase text-sm ml-10 md:text-lg  hover:border-b">projects</li></a>
-     <div className='flex m-4 '>
-<a href="https://wa.me/message/UPKYII5XJW5GH1"><FaWhatsapp className='border border-black p-2 rounded-full m-1' size={40}/></a>
-<a href="https://github.com/AmazingJosh"><FaGithub   className='border border-black p-2 rounded-full m-1' size={40}/></a>
-<a href="https://twitter.com/theamazingJosh_?t=Fd8bDkjcxRV8G1JQQQH3PQs=09"><FaTwitter className='border border-black p-2 rounded-full m-1' size={40}/></a>
-</div>
- <a href="/#contact"><li className=" border hover:bg-white border-pink-500 hover:ease-in-out hover:duration-500 text-center font-bold text-lg   py-[10px] px-[10px] ml-10  hover:border-b">Lets Connect</li></a>
- </ul>
+          {/* Logo */}
+          <a href="/" className="flex items-center gap-3 group flex-shrink-0">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-110" />
+              <img
+                src={Logo}
+                alt="Logo"
+                className="relative w-[52px] h-[52px] rounded-full object-cover border-2 border-transparent group-hover:border-violet-400 transition-all duration-300 shadow-md"
+              />
+            </div>
+            <span className="font-bold text-gray-900 tracking-tight text-xl hidden sm:block">
+              VirtualancerHub<span className="text-violet-600">.</span>
+            </span>
+          </a>
 
- <div onClick={toggle} className='lg:hidden'>
-    <AiOutlineMenu size={25}/>
-  </div>
-</div>
- </div>
- {/**menu */} 
-  <div className={menu? 'lg:hidden fixed left-0 top-0 w-full h-screen bg-black/40':''}>
-  <div className={menu? " fixed left-0 top-0 w-[70%] sm:w-[60%] md:[w-45%] h-screen bg-[#ecf0f3] p-10 ease-in duration-500":"fixed left-[-100%] top-0 w-[70%] sm:w-[60%] md:[w-45%] h-screen bg-[#ecf0f3] p-10 ease-in duration-500"}>
-    <div className=''>
-      <div className='w-full flex items-center justify-between'>
-      <h1 className="text-purple-900 font-normal text-xl sm:text-4xl ">AMAZING</h1>
-      <div onClick={toggle} className='rounded-full shadow-lg shadow-gray-400 p-3 sm:p-6 cursor-pointer'>
-        <AiOutlineClose />
-      </div>
-      </div>
-      <div className='border-b sm:my-6 border-gray-300 my-4'><p className='md:w-[90%] sm:text-3xl'>Lets Have An Amazing Experience
-      </p>
-      </div>
-    </div>
-    <div className=''>
-      <ul className='py-4 flex flex-col'>
+          {/* Desktop Nav Links */}
+          <ul className="hidden lg:flex items-center gap-1">
+            {navLinks.map(({ href, label }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  className="relative px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors duration-200 group"
+                >
+                  {label}
+                  <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-violet-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+                </a>
+              </li>
+            ))}
+          </ul>
 
-          <a href="/home"><li className='py-4 text-sm sm:text-2xl'>Home</li></a>
+          {/* Desktop Right Actions */}
+          <div className="hidden lg:flex items-center gap-3">
+            {/* Social Icons */}
+            <div className="flex items-center gap-1 mr-2">
+              {socials.map(({ href, icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="p-2 rounded-full text-gray-500 hover:text-violet-600 hover:bg-violet-50 transition-all duration-200"
+                >
+                  {icon}
+                </a>
+              ))}
+            </div>
 
-          <a href="/#skills"><li className='py-4 text-sm sm:text-2xl'>Skills</li></a>
+            {/* CV Download Button */}
+            <a
+              href="/Esthers-cv.docx"
+              download="Esther's-cv.docx"
+              className="flex items-center gap-2 px-5 py-2.5 bg-violet-600 hover:bg-violet-700 active:scale-95 text-white text-sm font-semibold rounded-full shadow-md shadow-violet-200 transition-all duration-200"
+            >
+              <HiDownload size={16} />
+              Download CV
+            </a>
+          </div>
 
-    
-         <a href="/#project"> <li className='py-4 text-sm sm:text-2xl'>Project</li></a>
-        <div className='flex ml-[-4px]'>
-          
-        <a href="https://wa.me/message/UPKYII5XJW5GH1"><FaWhatsapp className='border border-black p-2 sm:w-16 sm:h-16 rounded-full m-1 shadow-lg shadow-black/30' size={40}/></a>
-        <a href="https://github.com/AmazingJosh"><FaGithub className='border border-black p-2 sm:w-16 sm:h-16  rounded-full m-1 shadow-lg shadow-black/30' size={40}/></a>
-        <a href="https://twitter.com/theamazingJosh_?t=Fd8bDkjcxRV8G1JQQQH3PQs=09"><FaTwitter className='border border-black p-2 sm:w-16 sm:h-16  rounded-full m-1 shadow-lg shadow-black/30' size={40}/></a>
+          {/* Mobile Hamburger */}
+          <button
+            onClick={toggle}
+            className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+            aria-label="Open menu"
+          >
+            <AiOutlineMenu size={22} />
+          </button>
+        </div>
+      </nav>
+
+      {/* ── Mobile Drawer ── */}
+      {/* Overlay */}
+      <div
+        onClick={toggle}
+        className={`lg:hidden fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+          menu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      />
+
+      {/* Drawer Panel */}
+      <div
+        className={`lg:hidden fixed top-0 left-0 z-[70] h-screen w-[78%] sm:w-[60%] bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
+          menu ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+          <div className="flex items-center gap-3">
+            <img src={Logo} alt="Logo" className="w-10 h-10 rounded-full object-cover" />
+            <span className="font-bold text-gray-900 text-lg">
+              VirtualancerHub<span className="text-violet-600">.</span>
+            </span>
+          </div>
+          <button
+            onClick={toggle}
+            className="p-2 rounded-full hover:bg-gray-100 text-gray-500 transition-colors duration-200"
+            aria-label="Close menu"
+          >
+            <AiOutlineClose size={20} />
+          </button>
         </div>
 
-        <a href="/#contact"><li className=" border  hover:bg-white border-purple-600  sm:text-3xl sm:p-6 hover:ease-in-out hover:duration-500 text-center font-bold text-[#56] text-lg ml-[-20px] py-[10px] px-[20px] mt-5  hover:border-b">Let's Connect</li></a>
+        {/* Drawer Nav Links */}
+        <ul className="flex flex-col px-6 py-6 gap-1 flex-1 overflow-y-auto">
+          {navLinks.map(({ href, label }) => (
+            <li key={label}>
+              <a
+                href={href}
+                onClick={toggle}
+                className="flex items-center py-3.5 px-4 rounded-xl text-gray-700 font-medium hover:bg-violet-50 hover:text-violet-700 transition-all duration-200"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
 
+        {/* Drawer Footer */}
+        <div className="px-6 pb-8 pt-4 border-t border-gray-100 space-y-4">
+          {/* CV Download */}
+          <a
+            href="/Esthers-cv.docx"
+            download="Esther's-cv.docx "
+            className="flex items-center justify-center gap-2 w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-semibold rounded-xl shadow-md shadow-violet-200 transition-all duration-200 active:scale-95"
+          >
+            <HiDownload size={18} />
+            Download CV
+          </a>
 
-      </ul>
-    </div>
-  </div>
- </div>
- </div>
+          {/* Social Icons */}
+          <div className="flex items-center justify-center gap-3">
+            {socials.map(({ href, icon, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="p-3 rounded-full border border-gray-200 text-gray-500 hover:text-violet-600 hover:border-violet-300 transition-all duration-200"
+              >
+                {icon}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 
