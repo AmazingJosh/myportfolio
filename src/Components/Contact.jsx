@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { HiOutlineMail, HiOutlinePhone, HiOutlineLocationMarker } from 'react-icons/hi'
-import { FaTwitter, FaGithub, FaWhatsapp } from 'react-icons/fa'
 
 const Contact = () => {
   const [sent, setSent] = useState(false)
@@ -48,11 +47,7 @@ const Contact = () => {
     },
   ]
 
-  const socials = [
-    { href: 'https://github.com/AmazingJosh', icon: <FaGithub size={17} />, label: 'GitHub' },
-    { href: 'https://twitter.com/theamazingJosh_', icon: <FaTwitter size={17} />, label: 'Twitter' },
-    { href: 'https://wa.me/message/UPKYII5XJW5GH1', icon: <FaWhatsapp size={17} />, label: 'WhatsApp' },
-  ]
+
 
   return (
     <>

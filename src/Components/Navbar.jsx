@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
-import { FaTwitter, FaGithub, FaWhatsapp, FaLinkedin, FaMailchimp } from 'react-icons/fa'
+import { FaLinkedin} from 'react-icons/fa'
 import { HiDownload } from 'react-icons/hi'
 import Logo from "../assets/logo.jpeg"
 

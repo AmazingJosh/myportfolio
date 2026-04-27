@@ -1,16 +1,8 @@
-import React, { useEffect, useRef } from 'react'
 import { FaTwitter, FaGithub, FaWhatsapp } from 'react-icons/fa'
 import { HiOutlineMail } from 'react-icons/hi'
 import { HiArrowRight } from 'react-icons/hi'
-// Replace with your actual photo import:
 import ProfilePhoto from "../assets/Esther.jpeg"
 
-const socials = [
-  { href: 'https://github.com/AmazingJosh', icon: <FaGithub size={18} />, label: 'GitHub' },
-  { href: 'https://twitter.com/theamazingJosh_', icon: <FaTwitter size={18} />, label: 'Twitter' },
-  { href: 'https://wa.me/message/UPKYII5XJW5GH1', icon: <FaWhatsapp size={18} />, label: 'WhatsApp' },
-  { href: 'mailto:theamazingkeyz@gmail.com', icon: <HiOutlineMail size={18} />, label: 'Email' },
-]
 
 const MainPage = () => {
   return (

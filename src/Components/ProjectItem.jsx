@@ -11,7 +11,7 @@ const tagColor = {
 }
 
 const ProjectItem = ({ title, framework, imgBg, link, git, button }) => {
-  const [hovered, setHovered] = useState(false)
+  const [ setHovered] = useState(false)
   const color = tagColor[framework] ?? '#7c3aed'
 
   return (
